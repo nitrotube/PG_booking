@@ -6,7 +6,7 @@ from datetime import datetime
 from datetime import timedelta
 
 user_email = 'antoha_zhirniy@gmail.com'
-time_begin = '2018-12-27T05:00:00+01:00'
+time_begin = '2018-12-27T11:00:00+01:00'
 max_att = 10
 
 time_end = time_begin[:11]
@@ -33,18 +33,21 @@ def main():
     events_result = service.events().list(calendarId='primary',
                                           timeMin=time_begin,  # Does include events ending till
                                           # this time(exclusive)
-                                          timeMax='2018-12-27T22:00:00+01:00',  # Does include events
+                                          timeMax=time_end,  # Does include events
                                           # beginning till this time (exclusive)
                                           maxResults=20, singleEvents=True,
                                           orderBy='startTime').execute()
 
     events = events_result.get('items', [])
 
+    print(events)
+
     if (len(events[0]['attendees']) < max_att):
-        print('hey')
+        print(len(events[0]['attendees']))
+        events[0]['attendees'].append({'email': 'egork1.spirin@gmail.com'})
 
 
-    #updated_event = service.events().update(calendarId='primary', eventId=event['id'], body=event).execute()
+    updated_event = service.events().update(calendarId='primary', eventId=events[0]['id'], body=events[0]).execute()
 
 
 if __name__ == '__main__':
