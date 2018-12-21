@@ -7,7 +7,7 @@ from oauth2client import file, client, tools
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/calendar'
 
-booking_ID = '0jnbi8ers7l0n777smm7isolr0'
+booking_id = '0jnbi8ers7l0n777smm7isolr0'
 
 def main():
     """Shows basic usage of the Google Calendar API.
@@ -24,7 +24,7 @@ def main():
     service = build('calendar', 'v3', http=creds.authorize(Http()))
 
       # Call the Calendar API
-    service.events().delete(calendarId='primary', eventId=booking_ID).execute()
+    service.events().delete(calendarId='primary', eventId=booking_id).execute()
 
 
 if __name__ == '__main__':

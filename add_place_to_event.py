@@ -3,8 +3,8 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-place = 'C1'  # Assign chair ID to booking
-booking_ID = 'nest44o70rafpiti9c28j24beo'
+place_id = 'C1'  # Assign chair ID to booking
+booking_id = 'nest44o70rafpiti9c28j24beo'
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/calendar'
@@ -24,9 +24,9 @@ def main():
     service = build('calendar', 'v3', http=creds.authorize(Http()))
 
     # First retrieve the event from the API.
-    event = service.events().get(calendarId='primary', eventId=booking_ID).execute()
+    event = service.events().get(calendarId='primary', eventId=booking_id).execute()
 
-    event['location'] = place
+    event['location'] = place_id
 
     updated_event = service.events().update(calendarId='primary', eventId=event['id'], body=event).execute()
 
