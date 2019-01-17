@@ -6,7 +6,7 @@ from datetime import datetime
 from datetime import timedelta
 
 user_email = 'antoha_zhirniy@gmail.com'
-time_begin = '2018-12-27T11:00:00+01:00'
+time_begin = '2018-02-27T11:00:00+01:00'
 max_att = 10
 
 time_end = time_begin[:11]

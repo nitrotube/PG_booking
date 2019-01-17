@@ -1,11 +1,14 @@
 from __future__ import print_function
-import datetime
+from datetime import datetime
+from datetime import timedelta
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/calendar'
+time_begin = '2019-02-28T00:00:00+01:00'
+time_end = '2019-02-28T23:59:00+01:00'
 
 def main():
     """Shows basic usage of the Google Calendar API.
@@ -22,23 +25,22 @@ def main():
     service = build('calendar', 'v3', http=creds.authorize(Http()))
 
     # Call the Calendar API
-    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
     events_result = service.events().list(calendarId='primary',
-                                          timeMin='2018-12-27T05:00:00+01:00',  # Does include events ending till
+                                          timeMin=time_begin,  # Does include events ending till
                                                                                 # this time(exclusive)
-                                          timeMax='2018-12-27T22:00:00+01:00',  # Does include events
-                                                                                # beginning till this time (exclusive)
-                                          maxResults=20, singleEvents=True,
+                                          timeMax=time_end,  # Does include events
+
+                                          maxResults=50, singleEvents=True,
                                           orderBy='startTime').execute()
     events = events_result.get('items', [])
 
     if not events:
         print('No upcoming events found.')
-    else:
-        print(len(events))
     for event in events:
-        start = event['start'].get('dateTime', event['start'].get('date'))
-        print(start, event['summary'], len(event['attendees']))
+        try:
+            print(event['start']['dateTime'][11:][:5], event['summary'], '   Attending: ', len(events[0]['attendees']))
+        except:
+            pass
 
 if __name__ == '__main__':
     main()
