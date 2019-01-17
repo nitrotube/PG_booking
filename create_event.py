@@ -28,11 +28,11 @@ def main():
             'location': 'PionierGarage, Karlsruhe, Germany',
             'description': 'Going to be fun',
             'start': {
-                'dateTime': '2018-12-27T' + str(i) + ':00:00+01:00',  # Don't touch the given + values (What happens in summer?)
+                'dateTime': '2019-05-27T' + str(i) + ':00:00+01:00',  # Don't touch the given + values (What happens in summer?)
                 'timeZone': 'Europe/Berlin',
             },
             'end': {
-                'dateTime': '2018-12-27T' + str(i+1) + ':00:00+01:00',
+                'dateTime': '2018-05-27T' + str(i+1) + ':00:00+01:00',
                 'timeZone': 'Europe/Berlin',
             },
             'attendees': [
