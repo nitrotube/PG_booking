@@ -3,8 +3,8 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-user_email = 'antoha_zhirniy@gmail.com'
 event_id = '0m8psqpauuh7nfj9nmvqcrsi48'
+user_email = "eg.spdfffirin@gmail.com"
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/calendar'
@@ -18,10 +18,19 @@ def main():
         creds = tools.run_flow(flow, store)
     service = build('calendar', 'v3', http=creds.authorize(Http()))
 
+    # Call the Calendar API
 
     event = service.events().get(calendarId='primary', eventId=event_id).execute()
-    event['attendees'].append({'email': user_email})
+    to_be_deleted = ''
+
+    for attendee in event['attendees']:
+        if (attendee['email'] == user_email):
+            to_be_deleted = attendee
+    print(to_be_deleted)
+    event['attendees'].remove(to_be_deleted)
+    print(event['attendees'])
     service.events().update(calendarId='primary', eventId=event_id, body=event).execute()
+
 
 
 if __name__ == '__main__':

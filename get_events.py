@@ -5,18 +5,13 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
+user_email = "eg.spirin@gmail.com"
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/calendar'
 
-user_email = "eg.spirin@gmail.com"
 
 def main():
-    """Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
-    """
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
@@ -27,7 +22,6 @@ def main():
     # Call the Calendar API
     now = datetime.utcnow().isoformat()[:19] + '+01:00'  # 'Z' indicates UTC time
     now_in_a_year = (datetime.utcnow() + timedelta(days=365)).isoformat()[:19] + '+01:00'
-    print(now_in_a_year)
     events_result = service.events().list(calendarId='primary',
                                           timeMin= now,  # Does include events ending till
                                                                                 # this time(exclusive)
