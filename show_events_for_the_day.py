@@ -3,15 +3,15 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-time_begin = '2019-02-28T00:00:00+01:00'
-time_end = '2019-02-28T23:59:00+01:00'
-user_email = "eg.spirin@gmail.com"
+#time_begin = '2019-02-28T00:00:00+01:00'
+#time_end = '2019-02-28T23:59:00+01:00'
+#user_email = "eg.spirin@gmail.com"
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/calendar'
 
 
-def main():
+def show_events(time_begin, time_end, user_email):
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
@@ -44,4 +44,4 @@ def main():
             pass
 
 if __name__ == '__main__':
-    main()
+    show_events('2019-02-28T00:00:00+01:00', '2019-02-28T23:59:00+01:00', "eg.spirin@gmail.com")

@@ -3,14 +3,14 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-event_id = '0m8psqpauuh7nfj9nmvqcrsi48'
-user_email = "eg.spdfffirin@gmail.com"
+#event_id = '0m8psqpauuh7nfj9nmvqcrsi48'
+#user_email = "eg.spdfffirin@gmail.com"
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/calendar'
 
 
-def main():
+def delete_user(event_id, user_email):
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
@@ -27,11 +27,13 @@ def main():
         if (attendee['email'] == user_email):
             to_be_deleted = attendee
     print(to_be_deleted)
-    event['attendees'].remove(to_be_deleted)
-    print(event['attendees'])
+    try:
+        event['attendees'].remove(to_be_deleted)
+    except:
+        print("User not found in the event attendees list")
     service.events().update(calendarId='primary', eventId=event_id, body=event).execute()
 
 
 
 if __name__ == '__main__':
-    main()
+    delete_user('0m8psqpauuh7nfj9nmvqcrsi48', "eg.spdfffirin@gmail.com")
